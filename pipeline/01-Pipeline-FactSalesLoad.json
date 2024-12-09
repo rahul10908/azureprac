@@ -1,0 +1,79 @@
+{
+	"name": "01-Pipeline-FactSalesLoad",
+	"properties": {
+		"activities": [
+			{
+				"name": "01_Dataflow_FactSales",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "02_Customer_Product_Dim_Data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "01_Dataflow_FactSales",
+						"type": "DataFlowReference"
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "synapsedlsg2ls",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "data/log"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			},
+			{
+				"name": "02_Customer_Product_Dim_Data",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "02_Customer_Product_Dim_Data",
+						"type": "DataFlowReference"
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "synapsedlsg2ls",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "data/log"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2024-12-09T10:13:08Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

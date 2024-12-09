@@ -1,0 +1,17 @@
+{
+	"name": "FactSales",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "appdblls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "factSales"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
